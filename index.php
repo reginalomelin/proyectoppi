@@ -464,7 +464,7 @@
 							</h4>
 
 							<p class="t-center w-size4">
-								Regístrate y se de los primeros en enterarte de nuestras ofertas. Además de un 20% de descuento en tu primera compra
+								Regístrate y se de los primeros en enterarte de nuestras Promociones. Además de un 20% de descuento en tu primera compra
 							</p>
 
 							<div class="w-size2 p-t-25">
