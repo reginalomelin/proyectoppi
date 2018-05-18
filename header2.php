@@ -1,40 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>About</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/dress.png"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/themify/themify-icons.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/elegant-font/html-css/style.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-</head>
-<body class="animsition">
+<?php
+session_start();
+error_reporting(E_ERROR | E_WARNING | E_PARSE);?>
+	<html>
+	<head>
+  <meta charset="UTF-8">
+  <title>Responsive Login/Signup Modal Window</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
 
-	<!-- Header -->
-<!-- Header -->
+<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+
+      <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+    <!-- Header -->
 	<header class="header1">
 		<!-- Header desktop -->
 		<div class="container-menu-header">
@@ -49,9 +31,9 @@
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-                            
-                            <li>
-								<a href="about.html">Sobre Nosotros</a>
+
+                          <li>
+								<a href="about.php">Sobre Nosotros</a>
 							</li>
 
 							<li>
@@ -76,23 +58,192 @@
 
 
 							<li>
-								<a href="contact.html">Contacto</a>
+								<a href="contact.php">Contacto</a>
 							</li>
 
 							<li class="sale-noti">
 								<a href="productos.php?valor=7">Sale</a>
 							</li>
-						</ul>
-					</nav>
+
+
 				</div>
 
-				<!-- Header Icon -->
-				<div class="header-icons">
-					<a href="#" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
 
-					<span class="linedivide1"></span>
+				<!-- Header Icon -->
+
+
+<nav class="main-nav" style="margin-right:5px">
+<!-- inser more links here -->
+<li><a class="cd-signup" href="#0">Log in/Sing in</a></li>
+</ul>
+</nav>
+
+						<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+		<div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+			<ul class="cd-switcher">
+				<li><a href="#0">Sign in</a></li>
+				<li><a href="#0">New account</a></li>
+			</ul>
+
+			<div id="cd-login"> <!-- log in form -->
+				<form class="cd-form" method="post" id="formu">
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="signin-email">E-mail</label>
+						<input class="full-width has-padding has-border" id="signin-email" name="email" type="email" placeholder="E-mail">
+
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signin-password">Password</label>
+						<input class="full-width has-padding has-border" name="password" id="signin-password" type="text"  placeholder="Password">
+						<a href="#0" class="hide-password">Hide</a>
+						<span class="cd-error-message">Error message here!</span>
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="remember-me" checked>
+						<label for="remember-me">Remember me</label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width" type="submit" value="Login">
+					</p>
+				</form>
+
+				<p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
+				<!-- <a href="#0" class="cd-close-form">Close</a> -->
+				<?php
+				$email=$_POST['email'];
+				$pw=$_POST['password'];
+echo "entra al menos?";
+
+				$con=mysqli_connect("localhost", "root", "password", "vestidos");
+
+				// Check connection
+				if (mysqli_connect_errno()) {
+				 echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+
+
+				$result = mysqli_query($con,"SELECT * FROM usuario where email='$email';");
+
+
+
+				if($result->num_rows > 0){
+					echo "aqui?";
+				$row = mysqli_fetch_array($result);
+				if($pw==$row['password']){
+				$_SESSION['loggedin'] = true;
+
+				$_SESSION['username'] = $email;
+echo "aqui no, o si?";
+				// $_SESSION['start'] = time();
+
+
+				$_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
+
+				}else{
+				echo "El Mail o La contraseña son incorrectos";
+				}}
+				// 	$nusr= $row['nusuario'];
+				// 	if(!$nusr==NULL){
+				// 			echo "Sesión iniciada como " . $row['nusuario'];?><script>
+				// 			document.getElementById("formu").style.visibility="hidden" </script><?php
+				// 	}
+				// elseif($row['nusuario']==NULL){
+				// 		echo "El usuario no esta registrado o la contraseña es incorrecta";
+				// 	}
+
+
+
+				if(!$_SESSION['username']==NULL){
+					echo "Sesión iniciada como: " . $_SESSION['username'];
+
+					?><br>
+					<a href="sesion.php">LOGOUT</a>
+
+					<script>
+					document.getElementById("formu").style.visibility="hidden"
+					</script>
+					<?php
+					}
+				?>
+
+			</div> <!-- cd-login -->
+
+			<div id="cd-signup"> <!-- sign up form -->
+				<form class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signup-username">Username</label>
+						<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
+						<span class="cd-error-message">Error message here!</span>
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="signup-email">E-mail</label>
+						<input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
+						<span class="cd-error-message">Error message here!</span>
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signup-password">Password</label>
+						<input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="Password">
+						<a href="#0" class="hide-password">Hide</a>
+						<span class="cd-error-message">Error message here!</span>
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="accept-terms">
+						<label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width has-padding" type="submit" value="Create account">
+					</p>
+				</form>
+
+				<!-- <a href="#0" class="cd-close-form">Close</a> -->
+			</div> <!-- cd-signup -->
+
+			<div id="cd-reset-password"> <!-- reset password form -->
+				<p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+
+				<form class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="reset-email">E-mail</label>
+						<input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+						<span class="cd-error-message">Error message here!</span>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width has-padding" type="submit" value="Reset password">
+					</p>
+				</form>
+
+				<p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
+			</div> <!-- cd-reset-password -->
+			<a href="#0" class="cd-close-form">Close</a>
+		</div> <!-- cd-user-modal-container -->
+	</div> <!-- cd-user-modal -->
+
+
+						<!-- Header cart noti -->
+						<!-- <div class="header-cart header-dropdown">
+
+                            <h4>Inicia sesión</h4>
+														<form id="formu" method="post">
+																E-Mail:<br><input type="text" name="email">
+																Contraseña:<br><input type="password" name="password">
+																<input type="submit" value="Iniciar Sesión">
+
+																<a href="registro.php">¿No tienes cuenta? Regístrate</a>
+														</form>
+-->
+
+
+
+
+
 
 					<div class="header-wrapicon2">
 						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
@@ -320,85 +471,11 @@
 			</nav>
 		</div>
 	</header>
-
-	<!-- Title Page -->
-	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/aboutheader1.jpg);">
-		<h2 class="l-text2 t-center">
-			Sobre Nosotros
-		</h2>
-	</section>
-
-	<!-- content page -->
-	<section class="bgwhite p-t-66 p-b-38">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 p-b-30">
-					<div class="hov-img-zoom">
-						<img src="images/aboutimg.jpg" alt="IMG-ABOUT">
-					</div>
-				</div>
-
-				<div class="col-md-8 p-b-30">
-					<h3 class="m-text26 p-t-15 p-b-16">
-						Nosotros
-					</h3>
-
-					<p align="justify" class="p-b-28">
-						Faodail es una tienda de vestidos online que fue creada para que nuestras clientas puedan tener acceso a los mejores vestidos del mercado en un solo lugar, Faodail recolecta los vestidos de las mejores marcas en un sitio en donde se puedan comparar los diferentes modelos, estilos y precios que ofrece cada una de nuestras marcas, buscamos tener las mejores promociones para que nuestras clientas puedan encontrar el vestido que quieren, de la marca que quieren al mejor precio posible. Todos nuestros productos son originales y los entregamos a domicilio para mayor comodidad. Contamos con una política de devolución o cambio de 30 días para brindar la seguridad de que tendrán el producto que quieren en la puerta de su casa.
-					</p>
-
-					<div class="bo13 p-l-29 m-l-9 p-b-10">
-						<p class="p-b-11">
-							"Las mujeres necesitamos la belleza para que los hombres nos amen, y la estupidez para que nosotras amemos a los hombres".<br>
-                            "No es la apariencia, es la escencia, no es el dinero, es la educación, no es la ropa, es la CLASE".
-						</p>
-
-						<span class="s-text7">
-							- Coco Chanel
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	
-	<!-- Back to top -->
-	<div class="btn-back-to-top bg0-hov" id="myBtn">
-		<span class="symbol-btn-back-to-top">
-			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
-		</span>
-	</div>
-
-	<!-- Container Selection -->
-	<div id="dropDownSelect1"></div>
-	<div id="dropDownSelect2"></div>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 
 
-<!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
-	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
-	<script type="text/javascript">
-		$(".selection-1").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect1')
-		});
+    <script  src="js/index.js"></script>
 
-		$(".selection-2").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect2')
-		});
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
 
-</body>
-</html>
+    </html>
