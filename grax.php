@@ -6,7 +6,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 <html lang="en">
 
 <head>
-	<title>About</title>
+	<title>Compra Finalizada</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -42,9 +42,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/aboutheader1.jpg);">
-		<h2 class="l-text2 t-center">
-			Sobre Nosotros
-		</h2>
+
 	</section>
 
 
@@ -60,12 +58,13 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 				<div class="col-md-8 p-b-30">
 					<h3 class="m-text26 p-t-15 p-b-16">
-						Nosotros
+					¡Compra finalizada con éxito!
 					</h3>
 
 					<p align="justify" class="p-b-28">
-						Faodail es una tienda de vestidos online que fue creada para que nuestras clientas puedan tener acceso a los mejores vestidos del mercado en un solo lugar, Faodail recolecta los vestidos de las mejores marcas en un sitio en donde se puedan comparar los diferentes modelos, estilos y precios que ofrece cada una de nuestras marcas, buscamos tener las mejores promociones para que nuestras clientas puedan encontrar el vestido que quieren, de la marca que quieren al mejor precio posible. Todos nuestros productos son originales y los entregamos a domicilio para mayor comodidad. Contamos con una política de devolución o cambio de 30 días para brindar la seguridad de que tendrán el producto que quieren en la puerta de su casa.
-					</p>
+            Muchas gracias por comprar en Faodail. Espere su compra dentro de los proximos 20 días en la puerta de su casa, esperamos superar sus expectativas. Esperamos su próxima visita pronto.
+            Para regresar a nuestra página principal, <a href="index.php">Click aqui.</a>
+          	</p>
 
 					<div class="bo13 p-l-29 m-l-9 p-b-10">
 						<p class="p-b-11">

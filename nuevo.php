@@ -51,7 +51,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);?>
 <?php include("header.php");
 ?>
 
-<div class="signup__container" style="margin-top: 100px;height: 670px;">
+<div class="signup__container" style="margin-top: 350px;height: 1100px;">
 <div class="container__child signup__thumbnail">
 
 
@@ -61,30 +61,46 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);?>
 <div class="container__child signup__form">
   <form action="#" method="post">
     <div class="form-group">
-      <label for="username">Nombre de Usuario</label>
-      <input class="form-control" type="text" name="nusuario" placeholder="Nombre" required />
+      <label for="nproducto">Nombre del producto</label>
+      <input class="form-control" type="text" name="nproducto" placeholder="nombre del producto" required />
     </div>
     <div class="form-group">
-      <label for="email">Email</label>
-      <input class="form-control" type="text" name="email" placeholder="Email" required />
+      <label for="descripcion">Descripcion</label>
+      <input class="form-control" type="text" name="descripcion"  placeholder="Descripcion" required />
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
-      <input class="form-control" type="password" name="password"  placeholder="Contraseña" required />
+      <label for="foto">URL de Foto</label>
+      <input class="form-control" type="text" name="foto" placeholder="Foto" required />
     </div>
     <div class="form-group">
-      <label for="email">Fecha de Nacimiento</label>
-      <input class="form-control" type="date" name="fecha_nac" required />
+      <label for="precio">Precio</label>
+      <input class="form-control" type="text" name="precio" placeholder="Precio" required />
     </div>
     <div class="form-group">
-      <label for="email">Numero de tarjeta</label>
-      <input class="form-control" type="text" name="no_tarjeta" placeholder="No. de Tarjeta" required />
+      <label for="cant_almacen">Cantidad en el almacen:</label>
+      <input class="form-control" type="number" name="cant_almacen" placeholder="Cantidad en el almacen" required />
     </div>
     <div class="form-group">
-      <label for="email">Dirección</label>
-      <input class="form-control" type="text" name="direccion" placeholder="Direccion" required />
+      <label for="fabricante">Fabricante/Marca:</label>
+      <input class="form-control" type="text" name="fabricante" placeholder="Fabricante" required />
     </div>
-    <p id="lol">Ya estas registrado <a href="index.php">Regresar al inicio</a></p>
+    <div class="form-group">
+      <label for="origen">Origen del Producto</label>
+      <input class="form-control" type="text" name="origen" placeholder="Origen" required />
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoria(Casual, Trabajo, Cocktail, Etiqueta o Jumpsuits y Rompers)</label>
+      <input class="form-control" type="text" name="categoria" placeholder="Categoria" required />
+    </div>
+    <div class="form-group">
+      <label for="destacado">Destacados(1 si esta en Productos Destacados, 0 si no):</label>
+      <input class="form-control" type="number" name="destacado" placeholder="Destacados" required />
+    </div>
+    <div class="form-group">
+      <label for="oferta">Oferta(1 si esta en oferta, 0 si no):</label>
+      <input class="form-control" type="number" name="oferta" placeholder="Oferta" required />
+    </div>
+    <p id="lol">Producto nuevo agregado <a href="admin.php">Regresar a página Administrador</a></p>
 <script>
 document.getElementById("lol").style.display="none";
 </script>
@@ -99,17 +115,6 @@ document.getElementById("lol").style.display="none";
 </div>
 </div>
 
-<!-- <h2>Registro</h2>
-<form method="post">
-<h4>Nombre de Usuario:</h4> <input type="text" name="nusuario">
-<h4>E-Mail:</h4> <input type="text" name="email">
-<h4>Password:</h4> <input type="password" name="password">
-<h4>Fecha de Nacimiento:</h4> <input type="date" name="fecha_nac">
-<h4>No. Tarjeta:</h4> <input type="text" name="no_tarjeta">
-<h4>Dirección:</h4> <input type="text" name="direccion">
-<input type="submit" value="Registrar">
-</form> -->
-
 
 <?php
 
@@ -120,15 +125,18 @@ document.getElementById("lol").style.display="none";
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
     // escape variables for security
-    $nusuario = mysqli_real_escape_string($con, $_POST['nusuario']);
-    $email = mysqli_real_escape_string($con, $_POST['email']);
-    $password = mysqli_real_escape_string($con, $_POST['password']);
-    $fecha_nac = mysqli_real_escape_string($con, $_POST['fecha_nac']);
-    $no_tarjeta = mysqli_real_escape_string($con, $_POST['no_tarjeta']);
-    $direccion = mysqli_real_escape_string($con, $_POST['direccion']);
-    $sql="INSERT INTO usuario (nusuario, email, password, fecha_nac, no_tarjeta, direccion)
-      VALUES ('$nusuario', '$email', '$password', '$fecha_nac', '$no_tarjeta', '$direccion');";
-if(!$no_tarjeta==NULL){
+    $nproducto = mysqli_real_escape_string($con, $_POST['nproducto']);
+    $descripcion = mysqli_real_escape_string($con, $_POST['descripcion']);
+    $foto = mysqli_real_escape_string($con, $_POST['foto']);
+    $precio = mysqli_real_escape_string($con, $_POST['precio']);
+    $cant_almacen = mysqli_real_escape_string($con, $_POST['cant_almacen']);
+    $fabricante = mysqli_real_escape_string($con, $_POST['fabricante']);
+    $origen = mysqli_real_escape_string($con, $_POST['origen']);
+    $categoria = mysqli_real_escape_string($con, $_POST['categoria']);
+    $destacado = mysqli_real_escape_string($con, $_POST['destacado']);
+    $oferta = mysqli_real_escape_string($con, $_POST['oferta']);
+    $sql="INSERT INTO producto (nproducto, descripcion, foto, precio, cant_almacen, fabricante, origen, categoria, destacado, oferta)VALUES('$nproducto', '$descripcion', '$foto', '$precio', '$cant_almacen', '$fabricante', '$origen', '$categoria', '$destacado', '$oferta');";
+if(!$nproducto==NULL){
     if (!mysqli_query($con,$sql)) {
       die('Error: ' . mysqli_error($con));
     }?>
@@ -137,29 +145,9 @@ if(!$no_tarjeta==NULL){
     </script><?php
 
 
-$result = mysqli_query($con,"SELECT * FROM usuario where email='$email';");
-
-
-
-if($result->num_rows > 0){
-$row = mysqli_fetch_array($result);
-if($pw==$row['password']){
-$_SESSION['loggedin'] = true;
-
-$_SESSION['username'] = $email;
-
-// $_SESSION['start'] = time();
-
-
-$_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
-
-}}
 }
   mysqli_close($con);
 
-if(!$_SESSION['username']==NULL){
-  echo "Sesión iniciada como: " . $_SESSION['username'];
-}
 
   ?>
 

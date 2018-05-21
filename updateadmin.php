@@ -51,7 +51,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);?>
 <?php include("header.php");
 ?>
 
-<div class="signup__container" style="margin-top: 100px;height: 670px;">
+<div class="signup__container" style="margin-top: 350px;height: 1100px;">
 <div class="container__child signup__thumbnail">
 
 
@@ -59,39 +59,39 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);?>
     <div class="signup__overlay"></div>
 </div>
 <div class="container__child signup__form">
-  <form action="#" method="post">
+  <form action="upup.php" method="post">
     <div class="form-group">
-      <label for="username">Nombre de Usuario</label>
-      <input class="form-control" type="text" name="nusuario" placeholder="Nombre" required />
+      <label for="valor">¿Qué Producto quieres modificar?</label>
+      <input style="  border: 0.5px solid black !important;" class="form-control" type="number" name="id"  placeholder="id del producto" required />
     </div>
     <div class="form-group">
-      <label for="email">Email</label>
-      <input class="form-control" type="text" name="email" placeholder="Email" required />
+      <label for="columna">Que columna quieres Modificar</label>
+      <select  style="color:black;" name="columna">
+        <option value="">Columnas</option>
+        <option value="nproducto">nproducto</option>
+        <option value="descripcion">descripcion</option>
+        <option value="foto">foto</option>
+        <option value="precio">precio</option>
+        <option value="cant_almacen">cant_almacen</option>
+        <option value="fabricante">fabricante</option>
+        <option value="origen">origen</option>
+        <option value="categoria">categoria</option>
+        <option value="destacado">destacado</option>
+        <option value="oferta">oferta</option>
+      </select>
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
-      <input class="form-control" type="password" name="password"  placeholder="Contraseña" required />
+      <label for="valor">¿Qué Valor le quieres poner?</label>
+      <input style="  border: 0.5px solid black !important;" class="form-control" type="text" name="valor"  placeholder="Valor" required />
     </div>
-    <div class="form-group">
-      <label for="email">Fecha de Nacimiento</label>
-      <input class="form-control" type="date" name="fecha_nac" required />
-    </div>
-    <div class="form-group">
-      <label for="email">Numero de tarjeta</label>
-      <input class="form-control" type="text" name="no_tarjeta" placeholder="No. de Tarjeta" required />
-    </div>
-    <div class="form-group">
-      <label for="email">Dirección</label>
-      <input class="form-control" type="text" name="direccion" placeholder="Direccion" required />
-    </div>
-    <p id="lol">Ya estas registrado <a href="index.php">Regresar al inicio</a></p>
+    <p id="lol">Producto actualizado con éxito<a href="admin.php">Regresar a página Administrador</a></p>
 <script>
 document.getElementById("lol").style.display="none";
 </script>
     <div class="m-t-lg">
       <ul class="list-inline">
         <li>
-          <input class="btn btn--form" type="submit" value="Registrar" />
+          <input class="btn btn--form" type="submit" value="Actualizar" />
         </li>
       </ul>
     </div>
@@ -99,69 +99,7 @@ document.getElementById("lol").style.display="none";
 </div>
 </div>
 
-<!-- <h2>Registro</h2>
-<form method="post">
-<h4>Nombre de Usuario:</h4> <input type="text" name="nusuario">
-<h4>E-Mail:</h4> <input type="text" name="email">
-<h4>Password:</h4> <input type="password" name="password">
-<h4>Fecha de Nacimiento:</h4> <input type="date" name="fecha_nac">
-<h4>No. Tarjeta:</h4> <input type="text" name="no_tarjeta">
-<h4>Dirección:</h4> <input type="text" name="direccion">
-<input type="submit" value="Registrar">
-</form> -->
 
-
-<?php
-
-    $con=mysqli_connect("localhost", "root", "password", "vestidos");
-
-    // Check connection
-    if (mysqli_connect_errno()) {
-      echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
-    // escape variables for security
-    $nusuario = mysqli_real_escape_string($con, $_POST['nusuario']);
-    $email = mysqli_real_escape_string($con, $_POST['email']);
-    $password = mysqli_real_escape_string($con, $_POST['password']);
-    $fecha_nac = mysqli_real_escape_string($con, $_POST['fecha_nac']);
-    $no_tarjeta = mysqli_real_escape_string($con, $_POST['no_tarjeta']);
-    $direccion = mysqli_real_escape_string($con, $_POST['direccion']);
-    $sql="INSERT INTO usuario (nusuario, email, password, fecha_nac, no_tarjeta, direccion)
-      VALUES ('$nusuario', '$email', '$password', '$fecha_nac', '$no_tarjeta', '$direccion');";
-if(!$no_tarjeta==NULL){
-    if (!mysqli_query($con,$sql)) {
-      die('Error: ' . mysqli_error($con));
-    }?>
-    <script>
-    document.getElementById("lol").style.visibility="visible";
-    </script><?php
-
-
-$result = mysqli_query($con,"SELECT * FROM usuario where email='$email';");
-
-
-
-if($result->num_rows > 0){
-$row = mysqli_fetch_array($result);
-if($pw==$row['password']){
-$_SESSION['loggedin'] = true;
-
-$_SESSION['username'] = $email;
-
-// $_SESSION['start'] = time();
-
-
-$_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
-
-}}
-}
-  mysqli_close($con);
-
-if(!$_SESSION['username']==NULL){
-  echo "Sesión iniciada como: " . $_SESSION['username'];
-}
-
-  ?>
 
 
 </body>

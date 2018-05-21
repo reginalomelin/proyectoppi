@@ -1,12 +1,9 @@
 <?php
-session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-
  ?>
 <html lang="en">
-
 <head>
-	<title>About</title>
+	<title>Carrito</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -38,49 +35,109 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 </head>
 <body class="animsition">
 
+	<!-- Header -->
 <?php include("header.php"); ?>
 
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/aboutheader1.jpg);">
+	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-02.jpg);">
 		<h2 class="l-text2 t-center">
-			Sobre Nosotros
+			Administrador
 		</h2>
 	</section>
 
-
-	<!-- content page -->
-	<section class="bgwhite p-t-66 p-b-38">
+	<!-- Cart -->
+	<section class="cart bgwhite p-t-70 p-b-100">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-4 p-b-30">
-					<div class="hov-img-zoom">
-						<img src="images/aboutimg.jpg" alt="IMG-ABOUT">
-					</div>
-				</div>
+			<!-- Cart item -->
+<h2>Elementos Comprados:</h2>
+			<div class="container-table-cart pos-relative">
+				<div id=tabla class="wrap-table-shopping-cart bgwhite">
 
-				<div class="col-md-8 p-b-30">
-					<h3 class="m-text26 p-t-15 p-b-16">
-						Nosotros
-					</h3>
 
-					<p align="justify" class="p-b-28">
-						Faodail es una tienda de vestidos online que fue creada para que nuestras clientas puedan tener acceso a los mejores vestidos del mercado en un solo lugar, Faodail recolecta los vestidos de las mejores marcas en un sitio en donde se puedan comparar los diferentes modelos, estilos y precios que ofrece cada una de nuestras marcas, buscamos tener las mejores promociones para que nuestras clientas puedan encontrar el vestido que quieren, de la marca que quieren al mejor precio posible. Todos nuestros productos son originales y los entregamos a domicilio para mayor comodidad. Contamos con una política de devolución o cambio de 30 días para brindar la seguridad de que tendrán el producto que quieren en la puerta de su casa.
-					</p>
 
-					<div class="bo13 p-l-29 m-l-9 p-b-10">
-						<p class="p-b-11">
-							"Las mujeres necesitamos la belleza para que los hombres nos amen, y la estupidez para que nosotras amemos a los hombres".<br>
-                            "No es la apariencia, es la escencia, no es el dinero, es la educación, no es la ropa, es la CLASE".
-						</p>
 
-						<span class="s-text7">
-							- Coco Chanel
-						</span>
-					</div>
+					<table class="table-shopping-cart">
+						<tr class="table-head">
+              <th class="column-0">	<p style="margin-left:80px">ID</p></th>
+							<th class="column-1"></th>
+							<th class="column-2">Producto</th>
+							<th class="column-3">Cantidad</th>
+							<th class="column-4 p-l-70">Usuario</th>
+
+              <th></th>
+						</tr>
+             <?php
+                  $con=mysqli_connect("localhost", "root", "password", "vestidos");
+
+                  // Check connection
+                  if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                  }
+
+                  $result = mysqli_query($con,"select id_compra, cantidad, descripcion, talla, hist_producto, foto, hist_usr from historial_compra, producto where hist_producto=idproducto;");
+                  while($row = mysqli_fetch_array($result)) {
+
+
+
+
+                   ?>
+
+            	<tr class="table-row">
+
+                <td class="column-0">
+	<p style="margin-left:80px"><?php echo $row['hist_producto']; ?></p> </td>
+
+                <td class="column-1">
+
+								<div>
+									<img style="width:100px;" src= "images/<?php echo $row['foto'];?>">
+								</div>
+							</td>
+							<td class="column-2"><?php
+
+								 echo $row['descripcion'];
+							?> <br ><p style="font-size:23px;">Talla: <?php echo $row['talla']?></p></td>
+							<td class="column-3">
+							 	<p style="margin-left:100px"><?php echo $row['cantidad']; ?></p>
+
+									</td>
+							<td class="column-4">
+  								<p style="margin-left:100px"><?php echo $row['hist_usr']; ?></p>
+							</td>
+
+
+							</tr>
+            <?php
+
+            }
+
+          ?>
+
+					</table>
 				</div>
 			</div>
-		</div>
+
+
+			<!-- Total -->
+			<div style="display: inline-block;" class="w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
+
+        <form action="nuevo.php" method="post"  class="size15 trans-0-43">
+      <input type="submit" 	style="padding-left:15px; padding-right:15px;" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" value="Agregar nuevo producto">
+      </form>
+
+			</div>
+
+
+      <div style="display: inline-block;"class="w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
+
+        <form action="updateadmin.php" method="post"  class="size15 trans-0-43">
+      <input type="submit" 	style="padding-left:15px; padding-right:15px;" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" value="Actualizar Producto Existente">
+      </form>
+
+
+      </div>
 	</section>
+
 
 
 
